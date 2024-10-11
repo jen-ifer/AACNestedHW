@@ -1,3 +1,15 @@
+import edu.grinnell.csc207.util.AssociativeArray;
+import edu.grinnell.csc207.util.KeyNotFoundException;
+import edu.grinnell.csc207.util.NullKeyException;
+
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
+
+import java.util.NoSuchElementException;
+
 /**
  * Creates a set of mappings of an AAC that has two levels,
  * one for categories and then within each category, it has
@@ -6,11 +18,14 @@
  * and updating the set of images that would be shown and handling
  * an interactions.
  * 
- * @author Catie Baker & YOUR NAME HERE
+ * @author Catie Baker & Jenifer Silva
  *
  */
 public class AACMappings implements AACPage {
 	
+	String nameF;
+	AssociativeArray<String,AACCategory> arrayCat;
+
 	/**
 	 * Creates a set of mappings for the AAC based on the provided
 	 * file. The file is read in to create categories and fill each
@@ -32,6 +47,9 @@ public class AACMappings implements AACPage {
 	 * @param filename the name of the file that stores the mapping information
 	 */
 	public AACMappings(String filename) {
+		this.nameF = filename;
+		this.arrayCat = new AssociativeArray<String, AACCategory>();
+		AACCategory catarray = new 
 
 	}
 	
@@ -50,6 +68,7 @@ public class AACMappings implements AACPage {
 	 * category
 	 */
 	public String select(String imageLoc) {
+		if(imageLoc )
 		return null;
 	}
 	
