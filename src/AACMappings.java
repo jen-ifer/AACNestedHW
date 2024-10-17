@@ -25,6 +25,8 @@ public class AACMappings implements AACPage {
 	
 	String nameF;
 	AssociativeArray<String,AACCategory> arrayCat;
+	AssociativeArray<String,String> itemsDisplayed;
+
 
 	/**
 	 * Creates a set of mappings for the AAC based on the provided
@@ -49,7 +51,44 @@ public class AACMappings implements AACPage {
 	public AACMappings(String filename) {
 		this.nameF = filename;
 		this.arrayCat = new AssociativeArray<String, AACCategory>();
-		AACCategory catarray = new 
+		AACCategory newCategory = new AACCategory("");
+		
+		try{BufferedReader br = new BufferedReader(new FileReader(filename));
+			String line;
+			int index = line.indexOf(' ');
+			while((line = br.readLine()) !=null){
+				if(!line.startsWith(">")){
+					newCategory = new AACCategory(line.substring(line.indexOf(" ")));
+				}
+				while(line.startsWith(">")){
+					String[] item = line.split("", 2);
+					newCategory.addItem(line.substring(0, index), (line.substring(index)));
+
+
+
+					
+				}
+
+				}
+			}
+
+
+		}
+
+
+
+
+
+
+
+
+
+
+
+
+
+		//while
+		//AACCategory catarray = new 
 
 	}
 	

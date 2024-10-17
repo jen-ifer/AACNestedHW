@@ -13,17 +13,15 @@ import edu.grinnell.csc207.util.NullKeyException;
 public class AACCategory implements AACPage {
 	String categoryName;
 	AssociativeArray<String,String> itemsDisplayed;
-	String image;
 
 	
 	/**
 	 * Creates a new empty category with the given name
 	 * @param name the name of the category
 	 */
-	public AACCategory(String name, String imageloco) {
+	public AACCategory(String name) {
 		this.categoryName = name;
 		this.itemsDisplayed = new AssociativeArray<String,String>();
-		this.image = imageloco;
 
 	}
 	
