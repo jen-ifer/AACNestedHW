@@ -58,12 +58,12 @@ public class AACMappings implements AACPage {
 			int index = line.indexOf(' ');
 			while((line = br.readLine()) !=null){
 				if(!line.startsWith(">")){
-					newCategory = new AACCategory(line.substring(line.indexOf(" ")));
+					newCategory = new AACCategory(line.substring(line.indexOf(" ")+1));
+					arrayCat.set(line.substring(0, line.indexOf(" ")), newCategory);
 				}
 				while(line.startsWith(">")){
-					String[] item = line.split("", 2);
-					newCategory.addItem(line.substring(0, index), (line.substring(index)));
-
+					String[] item = line.substring(1).split("", 2);
+					newCategory.addItem(item[0], item[1]);
 
 
 					
