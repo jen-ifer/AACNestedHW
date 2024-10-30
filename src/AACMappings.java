@@ -25,7 +25,8 @@ public class AACMappings implements AACPage {
 	String nameF;
 	AssociativeArray<String, AACCategory> arrayCat;
 	AssociativeArray<String, String> itemsDisplayed;
-	String here;
+	String current;
+	private static String HomeScreen = "";
 
 
 
@@ -87,8 +88,19 @@ public class AACMappings implements AACPage {
 	 * @throws NoSuchElementException if the image provided is not in the current category
 	 */
 	public String select(String imageLoc) {
-		if (imageLoc)
-			return null;
+		if (current != null){
+			if(current.eqals(home_Screen)){
+				try {
+					current = arrayCat.get(imageLoc);
+					return "";
+				} catch (KeyNotFoundException e) {
+					throw new KeyNotFoundException();
+				}
+			}
+			return current.select(imageLoc);
+		}else{
+			throw new NoSuchElementException();
+		}
 	}
 
 	/**
@@ -98,16 +110,24 @@ public class AACMappings implements AACPage {
 	 *         an empty array
 	 */
 	public String[] getImageLocs() {
-		for(int i = 0; i < arrayCat.size(); i++){
-			this.newCategory[i]
+		if(current != null){
+			return current.getImageLocs();
 		}
-		return null;
+		else{
+			return new String [0];
+		}
 	}
 
 	/**
 	 * Resets the current category of the AAC back to the default category
 	 */
 	public void reset() {
+		if(current.equals(HomeScreen)){
+			return;
+		}
+		else{
+			current = HomeScreen;
+		}
 
 	}
 
@@ -138,7 +158,12 @@ public class AACMappings implements AACPage {
 	 * @param text the text associated with the image
 	 */
 	public void addItem(String imageLoc, String text) {
-
+		if(current == null){
+			return;
+		}
+		else{
+			current.additem(imageLoc, text);
+		}
 	}
 
 
@@ -148,6 +173,12 @@ public class AACMappings implements AACPage {
 	 * @return returns the current category or the empty string if on the default category
 	 */
 	public String getCategory() {
+		if(current == null){
+			return "";
+		}
+		else{
+			return current.getCategory();
+		}
 		return null;
 	}
 
@@ -160,6 +191,11 @@ public class AACMappings implements AACPage {
 	 * @return true if it is in the set of images that can be displayed, false otherwise
 	 */
 	public boolean hasImage(String imageLoc) {
-		return false;
+		if(current != null){
+			return current.hasImage(imageLoc);
+		}
+		else{
+			return false;
+		}
 	}
 }
