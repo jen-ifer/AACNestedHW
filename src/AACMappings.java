@@ -25,8 +25,8 @@ public class AACMappings implements AACPage {
 	String nameF;
 	AssociativeArray<String, AACCategory> arrayCat;
 	AssociativeArray<String, String> itemsDisplayed;
-	String current;
-	private static String HomeScreen = "";
+	AACCategory current;
+	private static AACCategory homeScreen;
 
 
 
@@ -89,12 +89,12 @@ public class AACMappings implements AACPage {
 	 */
 	public String select(String imageLoc) {
 		if (current != null){
-			if(current.eqals(home_Screen)){
+			if(current.equals(homeScreen)){
 				try {
 					current = arrayCat.get(imageLoc);
 					return "";
 				} catch (KeyNotFoundException e) {
-					throw new KeyNotFoundException();
+					throw new NoSuchElementException();
 				}
 			}
 			return current.select(imageLoc);
@@ -122,11 +122,11 @@ public class AACMappings implements AACPage {
 	 * Resets the current category of the AAC back to the default category
 	 */
 	public void reset() {
-		if(current.equals(HomeScreen)){
+		if(current.equals(homeScreen)){
 			return;
 		}
 		else{
-			current = HomeScreen;
+			current = homeScreen;
 		}
 
 	}
@@ -162,7 +162,7 @@ public class AACMappings implements AACPage {
 			return;
 		}
 		else{
-			current.additem(imageLoc, text);
+			current.addItem(imageLoc, text);
 		}
 	}
 
