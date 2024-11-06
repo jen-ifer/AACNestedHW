@@ -48,6 +48,7 @@ public class AACMappings implements AACPage {
 	public AACMappings(String filename) throws IOException {
 		this.nameF = filename;
 		this.arrayCat = new AssociativeArray<String, AACCategory>();
+		this.current = null;
 		AACCategory newCategory = new AACCategory("");
 
 		try {
@@ -88,8 +89,10 @@ public class AACMappings implements AACPage {
 	 * @throws NoSuchElementException if the image provided is not in the current category
 	 */
 	public String select(String imageLoc) {
-		if (current != null){
-			if(current.equals(homeScreen)){
+		if (current == null) {
+			current = homeScreen;
+		} else if (current != null) {
+			if (current.equals(homeScreen)) {
 				try {
 					current = arrayCat.get(imageLoc);
 					return "";
@@ -98,7 +101,7 @@ public class AACMappings implements AACPage {
 				}
 			}
 			return current.select(imageLoc);
-		}else{
+		} else {
 			throw new NoSuchElementException();
 		}
 	}
@@ -110,11 +113,10 @@ public class AACMappings implements AACPage {
 	 *         an empty array
 	 */
 	public String[] getImageLocs() {
-		if(current != null){
+		if (current != null) {
 			return current.getImageLocs();
-		}
-		else{
-			return new String [0];
+		} else {
+			return new String[0];
 		}
 	}
 
@@ -122,10 +124,9 @@ public class AACMappings implements AACPage {
 	 * Resets the current category of the AAC back to the default category
 	 */
 	public void reset() {
-		if(current.equals(homeScreen)){
+		if (current.equals(homeScreen)) {
 			return;
-		}
-		else{
+		} else {
 			current = homeScreen;
 		}
 
@@ -148,7 +149,7 @@ public class AACMappings implements AACPage {
 	 */
 	public void writeToFile(String filename) {
 
-	}null
+	}
 
 	/**
 	 * Adds the mapping to the current category (or the default category if that is the current
@@ -158,10 +159,9 @@ public class AACMappings implements AACPage {
 	 * @param text the text associated with the image
 	 */
 	public void addItem(String imageLoc, String text) {
-		if(current == null){
+		if (current == null) {
 			return;
-		}
-		else{
+		} else {
 			current.addItem(imageLoc, text);
 		}
 	}
@@ -173,10 +173,9 @@ public class AACMappings implements AACPage {
 	 * @return returns the current category or the empty string if on the default category
 	 */
 	public String getCategory() {
-		if(current == null){
+		if (current == null) {
 			return "";
-		}
-		else{
+		} else {
 			return current.getCategory();
 		}
 		return null;
@@ -191,10 +190,9 @@ public class AACMappings implements AACPage {
 	 * @return true if it is in the set of images that can be displayed, false otherwise
 	 */
 	public boolean hasImage(String imageLoc) {
-		if(current != null){
+		if (current != null) {
 			return current.hasImage(imageLoc);
-		}
-		else{
+		} else {
 			return false;
 		}
 	}
