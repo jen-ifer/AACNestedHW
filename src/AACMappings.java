@@ -178,7 +178,6 @@ public class AACMappings implements AACPage {
 		} else {
 			return current.getCategory();
 		}
-		return null;
 	}
 
 
