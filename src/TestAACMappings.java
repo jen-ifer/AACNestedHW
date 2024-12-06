@@ -263,7 +263,9 @@ public class TestAACMappings {
         "nothing in category tres");
 
     mappings.reset();
+    /////
     categories = mappings.getImageLocs();
+    ////
     assertEquals(3, categories.length, "still three top-level categories");
     assertTrue(containsString(categories, "uno"), 
         "the first top-level category");

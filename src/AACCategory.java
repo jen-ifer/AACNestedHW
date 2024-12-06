@@ -65,7 +65,6 @@ public class AACCategory implements AACPage {
 		try {
       return this.itemsDisplayed.get(imageLoc);
     } catch (KeyNotFoundException e) {
-
 		}
 		throw new NoSuchElementException();
 	}
