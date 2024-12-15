@@ -92,15 +92,29 @@ public class AACMappings implements AACPage {
 	 * @return if there is text to be spoken, it returns that information, otherwise it returns the
 	 *         empty string
 	 * @throws NoSuchElementException if the image provided is not in the current category
-	 */
-	public String select(String imageLoc) {
+		 * @throws KeyNotFoundException 
+		 */
+		public String select(String imageLoc) throws NoSuchElementException {
 		if (current == null) {
 			current = homeScreen;
+		}
+		try {
+			if(current != homeScreen && arrayCat.get(imageLoc)== current){
+				throw new NoSuchElementException();
+			}
+		} catch (KeyNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 		try {
 			current = arrayCat.get(imageLoc);
 			return "";
 		} catch (KeyNotFoundException e) {
+			// try {
+			// 	return current.select(imageLoc);
+			// } catch (NoSuchElementException i) {
+			// 	throw new NoSuchElementException();
+			// }
 
 		}
 		return current.select(imageLoc);
@@ -113,12 +127,16 @@ public class AACMappings implements AACPage {
 	 *         an empty array
 	 */
 	public String[] getImageLocs() {
-		if (current != null) {
+		if (current != null && current!=homeScreen)  {
+			if(current.getImageLocs().length==0){
+				return new String[0];
+			}
 			return current.getImageLocs();
-
-		} else if(homeScreen != null){
-			return homeScreen.getImageLocs();
 		}
+
+		// } else if(homeScreen != null && !homeScreen.getCategory().isEmpty() ){
+		// 	return homeScreen.getImageLocs();
+		// }
 		else{
 			return arrayCat.keysAsStrings();
 		}
@@ -179,7 +197,7 @@ public class AACMappings implements AACPage {
 	 */
 	public void addItem(String imageLoc, String text) {
 		if (current == null) {
-			return;
+			current = homeScreen;
 		} else {
 			current.addItem(imageLoc, text);
 		}
