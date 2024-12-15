@@ -184,7 +184,12 @@ public class AAC implements ActionListener {
 			this.startIndex += NUM_ACROSS * NUM_DOWN;
 			this.endIndex = Math.min(endIndex + NUM_ACROSS * NUM_DOWN, this.images.length);
 		} else if (actionCommand.equals("save") && this.page instanceof AACMappings) {
-			((AACMappings) this.page).writeToFile("AACMappingsNew.txt");
+			try {
+				((AACMappings) this.page).writeToFile("AACMappingsNew.txt");
+			} catch (Exception e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 			this.images = this.page.getImageLocs();
 			this.startIndex = 0;
 			this.endIndex = Math.min(NUM_ACROSS * NUM_DOWN, this.images.length);

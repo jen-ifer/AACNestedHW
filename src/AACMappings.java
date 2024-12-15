@@ -27,7 +27,7 @@ public class AACMappings implements AACPage {
 	AssociativeArray<String, AACCategory> arrayCat;
 	AssociativeArray<String, String> itemsDisplayed;
 	AACCategory current;
-	private static AACCategory homeScreen;
+	private static AACCategory homeScreen = new AACCategory("home");
 
 
 
@@ -51,7 +51,6 @@ public class AACMappings implements AACPage {
 		this.arrayCat = new AssociativeArray<String, AACCategory>();
 		this.current = null;
 		AACCategory newCategory = new AACCategory("");
-		this.homeScreen = new AACCategory("home");
 
 		try {
 			BufferedReader br = new BufferedReader(new FileReader(filename));
@@ -63,13 +62,13 @@ public class AACMappings implements AACPage {
 				int index = line.indexOf(' ');
 				if (!line.startsWith(">")) {
 					newCategory = new AACCategory(line.substring(line.indexOf(" ") + 1));
-					if (homeScreen == null) {
+					if (newCategory.equals(homeScreen)) {
 						homeScreen = newCategory;
 					}
 					arrayCat.set(line.substring(0, line.indexOf(" ")), newCategory);
 				} else {
 					if (newCategory != null) {
-						String[] item = line.substring(1).split("", 2);
+						String[] item = line.substring(1).split(" ", 2);
 						newCategory.addItem(item[0], item[1]);
 					}
 				}
@@ -116,7 +115,11 @@ public class AACMappings implements AACPage {
 	public String[] getImageLocs() {
 		if (current != null) {
 			return current.getImageLocs();
-		} else {
+
+		} else if(homeScreen != null){
+			return homeScreen.getImageLocs();
+		}
+		else{
 			return arrayCat.keysAsStrings();
 		}
 	}
@@ -125,7 +128,7 @@ public class AACMappings implements AACPage {
 	 * Resets the current category of the AAC back to the default category
 	 */
 	public void reset() {
-		if (current.equals(homeScreen)) {
+		if (current == null || current.equals(homeScreen)) {
 			return;
 		} else {
 			current = homeScreen;
