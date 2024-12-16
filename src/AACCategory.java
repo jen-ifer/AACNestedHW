@@ -31,10 +31,11 @@ public class AACCategory implements AACPage {
 	 * @param text the text that image should speak
 	 */
 	public void addItem(String imageLoc, String text) {
-		try {
-      this.itemsDisplayed.set(imageLoc, text);
-    } catch (NullKeyException e) {
-		}
+      try {
+				this.itemsDisplayed.set(imageLoc, text);
+			} catch (NullKeyException e) {
+			}
+
 	}
 
 	/**

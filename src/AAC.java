@@ -187,7 +187,7 @@ public class AAC implements ActionListener {
 			try {
 				((AACMappings) this.page).writeToFile("AACMappingsNew.txt");
 			} catch (Exception e1) {
-				// TODO Auto-generated catch block
+				// Auto-generated catch block
 				e1.printStackTrace();
 			}
 			this.images = this.page.getImageLocs();

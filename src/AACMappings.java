@@ -110,11 +110,6 @@ public class AACMappings implements AACPage {
 			current = arrayCat.get(imageLoc);
 			return "";
 		} catch (KeyNotFoundException e) {
-			// try {
-			// 	return current.select(imageLoc);
-			// } catch (NoSuchElementException i) {
-			// 	throw new NoSuchElementException();
-			// }
 
 		}
 		return current.select(imageLoc);
@@ -133,10 +128,6 @@ public class AACMappings implements AACPage {
 			}
 			return current.getImageLocs();
 		}
-
-		// } else if(homeScreen != null && !homeScreen.getCategory().isEmpty() ){
-		// 	return homeScreen.getImageLocs();
-		// }
 		else{
 			return arrayCat.keysAsStrings();
 		}
@@ -198,6 +189,7 @@ public class AACMappings implements AACPage {
 	public void addItem(String imageLoc, String text) {
 		if (current == null) {
 			current = homeScreen;
+			current.addItem(imageLoc, text);
 		} else {
 			current.addItem(imageLoc, text);
 		}
