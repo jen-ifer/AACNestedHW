@@ -46,7 +46,7 @@ public class AACMappings implements AACPage {
 	 * 
 	 * @param filename the name of the file that stores the mapping information
 	 */
-	public AACMappings(String filename) throws IOException {
+	public AACMappings(String filename)  {
 		this.nameF = filename;
 		this.arrayCat = new AssociativeArray<String, AACCategory>();
 		this.current = null;
@@ -78,6 +78,8 @@ public class AACMappings implements AACPage {
 			return;
 		} catch (NullKeyException e) {
 			return;
+		}catch (IOException e) {
+			return;
 		}
 	}
 
@@ -103,8 +105,7 @@ public class AACMappings implements AACPage {
 				throw new NoSuchElementException();
 			}
 		} catch (KeyNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		
 		}
 		try {
 			current = arrayCat.get(imageLoc);
@@ -161,8 +162,6 @@ public class AACMappings implements AACPage {
 	 * @param filename the name of the file to write the AAC mapping to
 	 */
 	public void writeToFile(String filename) throws Exception {
-		// PrintWriter pen = new PrintWriter(System.out, true);
-		// Writer output = null;
 		try {
 			FileWriter fw = new FileWriter(filename + ".txt");
 			String[] categories = arrayCat.keysAsStrings();
