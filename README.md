@@ -1,4 +1,11 @@
-Name: Jenifer Silva
-Help from Boston in evening tutoring setting up the try and catches
+Author: Jenifer Silva
+Starter Code: Catie Baker & Sam Rebelsky
 
-This miniproject is not fully completed. I need to finish up mapping class.
+Purpose: Create a symbol based AAC in which a user can click an image and text relating to that image will be spoken by the device.
+
+Acknowledgements: 
+Help from Boston in evening tutoring setting up the try and catches, constructor and select method. SamR helped fix issue with the pop-up screen not showing up. Sara Jaljaa Helped me with add items and select.
+
+GitHub Catie Baker: https://github.com/catiembaker/AACNestedHW
+
+This Project: https://github.com/jen-ifer/AACNestedHW

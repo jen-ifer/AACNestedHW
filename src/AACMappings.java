@@ -27,7 +27,7 @@ public class AACMappings implements AACPage {
 	AssociativeArray<String, AACCategory> arrayCat;
 	AssociativeArray<String, String> itemsDisplayed;
 	AACCategory current;
-	private static AACCategory homeScreen = new AACCategory("home");
+	private static AACCategory homeScreen = new AACCategory("");
 
 
 
@@ -46,10 +46,10 @@ public class AACMappings implements AACPage {
 	 * 
 	 * @param filename the name of the file that stores the mapping information
 	 */
-	public AACMappings(String filename)  {
+	public AACMappings(String filename) {
 		this.nameF = filename;
 		this.arrayCat = new AssociativeArray<String, AACCategory>();
-		this.current = null;
+		this.current = homeScreen;
 		AACCategory newCategory = new AACCategory("");
 
 		try {
@@ -78,7 +78,7 @@ public class AACMappings implements AACPage {
 			return;
 		} catch (NullKeyException e) {
 			return;
-		}catch (IOException e) {
+		} catch (IOException e) {
 			return;
 		}
 	}
@@ -94,26 +94,19 @@ public class AACMappings implements AACPage {
 	 * @return if there is text to be spoken, it returns that information, otherwise it returns the
 	 *         empty string
 	 * @throws NoSuchElementException if the image provided is not in the current category
-		 * @throws KeyNotFoundException 
-		 */
-		public String select(String imageLoc) throws NoSuchElementException {
-		if (current == null) {
-			current = homeScreen;
-		}
-		try {
-			if(current != homeScreen && arrayCat.get(imageLoc)== current){
-				throw new NoSuchElementException();
-			}
-		} catch (KeyNotFoundException e) {
-		
-		}
-		try {
-			current = arrayCat.get(imageLoc);
-			return "";
-		} catch (KeyNotFoundException e) {
+	 * @throws KeyNotFoundException
+	 */
+	public String select(String imageLoc) throws NoSuchElementException {
 
+		try {
+			if (current.equals(homeScreen)) {
+				current = arrayCat.get(imageLoc);
+				return "";
+			}
+			return this.current.select(imageLoc);
+		} catch (KeyNotFoundException e) {
+			throw new NoSuchElementException();
 		}
-		return current.select(imageLoc);
 	}
 
 	/**
@@ -132,8 +125,8 @@ public class AACMappings implements AACPage {
 		else{
 			return arrayCat.keysAsStrings();
 		}
-	}
 
+	}
 	/**
 	 * Resets the current category of the AAC back to the default category
 	 */
@@ -186,12 +179,18 @@ public class AACMappings implements AACPage {
 	 * @param text the text associated with the image
 	 */
 	public void addItem(String imageLoc, String text) {
-		if (current == null) {
-			current = homeScreen;
-			current.addItem(imageLoc, text);
-		} else {
-			current.addItem(imageLoc, text);
+		try {
+			if (current.equals(homeScreen)) {
+				current.itemsDisplayed.set(imageLoc, text);
+				arrayCat.set(imageLoc, new AACCategory(text));
+			} else {
+				current.addItem(imageLoc, text);
+			}
+			
+		} catch (NullKeyException e) {
+			return;
 		}
+		
 	}
 
 	/**
